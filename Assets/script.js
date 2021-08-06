@@ -4,6 +4,8 @@ var secondsLeft = 10;
 var questionEl = document.querySelector("#question");
 var buttonEl = document.querySelector("#startQuiz");
 var choicesList = document.querySelector("#choices");
+var questionIndex = 0;
+var score = 0;
 
 var allQuestions = [
   {
@@ -51,15 +53,27 @@ function displayQuestion(index) {
       //elem.value=choice[0];
       button.innerHTML=choices[i];
       button.addEventListener("click", function() {
-        console.log(this.innerText);
+        //console.log(this.innerText);
+      //tell checkAnswer what answer was selected
+      checkAnswer(this.innerText);
       })
       listItem.appendChild(button);
       choicesList.appendChild(listItem);
     }
 }
 
-for(let i = 0; i < allQuestions.length; i++) {
-  console.log(allQuestions[i].rightAnswer);
+function checkAnswer(choices) {
+  //logic to check if answer is correct
+  console.log(choices);
+  if(choices == allQuestions.rightAnswer) {
+    score++;
+  }
+  console.log("Score: " + score);
+  //move on to next question
+  choicesList.innerHTML = "";
+  questionIndex++;
+  displayQuestion(questionIndex);
+  console.log(questionIndex);
 }
 
 //timeEL is element on Dom
@@ -82,5 +96,6 @@ setTime();
 
 buttonEl.addEventListener("click", function(){
   console.log("Click");
-  displayQuestion(1);
+  displayQuestion(questionIndex);
+  buttonEl.style.visibility = "hidden";
 });
