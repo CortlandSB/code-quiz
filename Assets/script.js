@@ -46,10 +46,15 @@ function displayQuestion(index) {
     var choices = allQuestions[index].answers;
     console.log(choices);
     for(var i = 0; i < choices.length; i++) {
-      var elem = document.createElement("li");
+      var listItem = document.createElement("li");
+      var button = document.createElement("button");
       //elem.value=choice[0];
-      elem.innerHTML=choices[i];
-      choicesList.appendChild(elem);
+      button.innerHTML=choices[i];
+      button.addEventListener("click", function() {
+        console.log(this.innerText);
+      })
+      listItem.appendChild(button);
+      choicesList.appendChild(listItem);
     }
 }
 
@@ -61,7 +66,7 @@ for(let i = 0; i < allQuestions.length; i++) {
 function setTime() {
     var timerInterval = setInterval(function() {
       secondsLeft--;
-      timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+      //timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
   
       if(secondsLeft === 0) {
         clearInterval(timerInterval);
