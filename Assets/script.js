@@ -3,6 +3,7 @@ console.log(timeEl);
 var secondsLeft = 10;
 var questionEl = document.querySelector("#question");
 var buttonEl = document.querySelector("#startQuiz");
+var choicesList = document.querySelector("#choices");
 
 var allQuestions = [
   {
@@ -42,6 +43,14 @@ function displayQuestion(index) {
   questionEl.textContent = allQuestions[index].question;
   //display answers
   //google "display elements from array js onto html"
+    var choices = allQuestions[index].answers;
+    console.log(choices);
+    for(var i = 0; i < choices.length; i++) {
+      var elem = document.createElement("li");
+      //elem.value=choice[0];
+      elem.innerHTML=choices[i];
+      choicesList.appendChild(elem);
+    }
 }
 
 for(let i = 0; i < allQuestions.length; i++) {
@@ -68,5 +77,5 @@ setTime();
 
 buttonEl.addEventListener("click", function(){
   console.log("Click");
-  displayQuestion(0);
+  displayQuestion(1);
 });
