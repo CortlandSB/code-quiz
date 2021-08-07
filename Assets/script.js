@@ -40,6 +40,7 @@ var allQuestions = [
   }
 ]
 // timeEl.textContent = allQuestions[1].rightAnswer;
+//setInterval(function(){ alert("Time's up!"); }, 5);
 
 function displayQuestion(index) {
   questionEl.textContent = allQuestions[index].question;
@@ -65,7 +66,7 @@ function displayQuestion(index) {
 function checkAnswer(choices) {
   //logic to check if answer is correct
   console.log(choices);
-  if(choices == allQuestions.rightAnswer) {
+  if(choices == allQuestionsu.rightAnswer) {
     score++;
   }
   console.log("Score: " + score);
