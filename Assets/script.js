@@ -98,8 +98,12 @@ function checkAnswer(choices) {
   console.log("Score: " + score);
   //move on to next question
   choicesList.innerHTML = "";
-  questionIndex++;
-  displayQuestion(questionIndex);
+  if(questionIndex < allQuestions.length - 1) {
+    questionIndex++;
+    displayQuestion(questionIndex);
+  } else {
+    console.log("Final score: " + score);
+  }
   console.log(questionIndex);
 }
 
