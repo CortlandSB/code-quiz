@@ -1,11 +1,11 @@
-var timeEl = document.querySelector(".time");
+var timeEl = document.querySelector("#time");
 console.log(timeEl);
 var secondsLeft = 10;
 var questionEl = document.querySelector("#question");
 var buttonEl = document.querySelector("#startQuiz");
 var choicesList = document.querySelector("#choices");
 var questionIndex = 0;
-var score = 0;
+var score;
 
 var allQuestions = [
   {
@@ -41,6 +41,32 @@ var allQuestions = [
 ]
 // timeEl.textContent = allQuestions[1].rightAnswer;
 //setInterval(function(){ alert("Time's up!"); }, 5);
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left on clock.";
+    console.log(secondsLeft);
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+      sendMessage();
+    }
+
+  }, 1000);
+}
+
+// Function to create and append Time Over image
+function sendMessage() {
+  timeEl.textContent = " ";
+  //var imgEl = document.createElement("img");
+  imgEl.setAttribute("src", "images/image_1.jpg");
+  mainEl.appendChild(imgEl);
+
+}
+
+//setTime();
 
 function displayQuestion(index) {
   questionEl.textContent = allQuestions[index].question;
@@ -66,7 +92,7 @@ function displayQuestion(index) {
 function checkAnswer(choices) {
   //logic to check if answer is correct
   console.log(choices);
-  if(choices == allQuestionsu.rightAnswer) {
+  if(choices == allQuestions[questionIndex].rightAnswer) {
     score++;
   }
   console.log("Score: " + score);
@@ -97,6 +123,8 @@ setTime();
 
 buttonEl.addEventListener("click", function(){
   console.log("Click");
+  score = 0;
   displayQuestion(questionIndex);
   buttonEl.style.visibility = "hidden";
+  setTime();
 });
