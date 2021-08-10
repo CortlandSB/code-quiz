@@ -1,11 +1,12 @@
 var timeEl = document.querySelector("#time");
 console.log(timeEl);
-var secondsLeft = 10;
+var secondsLeft = 30;
 var questionEl = document.querySelector("#question");
 var buttonEl = document.querySelector("#startQuiz");
 var choicesList = document.querySelector("#choices");
 var questionIndex = 0;
 var score;
+var scoreCount = document.querySelector("#score");
 
 var allQuestions = [
   {
@@ -46,7 +47,7 @@ function setTime() {
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left on clock.";
-    console.log(secondsLeft);
+    //console.log(secondsLeft);
     if(secondsLeft === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
@@ -89,41 +90,35 @@ function displayQuestion(index) {
     }
 }
 
-function checkAnswer(choices) {
+function checkAnswer(choice) {
   //logic to check if answer is correct
-  console.log(choices);
-  if(choices == allQuestions[questionIndex].rightAnswer) {
+  //console.log(choice);
+  if(choice == allQuestions[questionIndex].rightAnswer) {
     score++;
+    scoreCount.textContent = score;
+  } else {
+    secondsLeft-=10;
   }
-  console.log("Score: " + score);
+  //console.log("Score: " + score);
   //move on to next question
   choicesList.innerHTML = "";
-  if(questionIndex < allQuestions.length - 1) {
+  if(secondsLeft <= 0) {
+    gameOver();
+  } else if(questionIndex < allQuestions.length - 1) {
     questionIndex++;
     displayQuestion(questionIndex);
-  } else {
-    console.log("Final score: " + score);
   }
-  console.log(questionIndex);
+   else {
+    gameOver();
+  }
+  //console.log(questionIndex);
 }
 
-//timeEL is element on Dom
-function setTime() {
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      //timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
-  
-      if(secondsLeft === 0) {
-        clearInterval(timerInterval);
-        sendMessage();
-      }
-    }, 1000);
-  }
-
-function sendMessage() {
-    timeEl.textContent = " ";
+function gameOver() {
+  console.log("Game over! Final score: " + score);
+  questionEl.textContent="Game over! Final score: " + score;
+  timeEl.style.visibility = "hidden";
 }
-setTime();
 
 buttonEl.addEventListener("click", function(){
   console.log("Click");
