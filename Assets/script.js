@@ -7,6 +7,11 @@ var choicesList = document.querySelector("#choices");
 var questionIndex = 0;
 var score;
 var scoreCount = document.querySelector("#score");
+var highScores = document.querySelector(".high-scores");
+//highScores.style.visibility="hidden";
+var initials = document.querySelector("#initials");
+var initialsInput = document.querySelector("#initials-input");
+var mainEl = document.getElementById("main");
 
 var allQuestions = [
   {
@@ -61,8 +66,8 @@ function setTime() {
 // Function to create and append Time Over image
 function sendMessage() {
   timeEl.textContent = " ";
-  //var imgEl = document.createElement("img");
-  imgEl.setAttribute("src", "images/image_1.jpg");
+  var imgEl = document.createElement("img");
+  imgEl.setAttribute("src", "Assets/image_1.jpg");
   mainEl.appendChild(imgEl);
 
 }
@@ -118,6 +123,11 @@ function gameOver() {
   console.log("Game over! Final score: " + score);
   questionEl.textContent="Game over! Final score: " + score;
   timeEl.style.visibility = "hidden";
+  highScores.style.visibility="visible";
+  initials.addEventListener("click", function(){
+    console.log(initialsInput.value);
+  })
+
 }
 
 buttonEl.addEventListener("click", function(){
