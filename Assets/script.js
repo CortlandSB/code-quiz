@@ -12,6 +12,11 @@ var highScores = document.querySelector(".high-scores");
 var initials = document.querySelector("#initials");
 var initialsInput = document.querySelector("#initials-input");
 var mainEl = document.getElementById("main");
+const NO_OF_HIGH_SCORES = 3;
+const HIGH_SCORES = 'highScores';
+const highScoreString = localStorage.getItem(HIGH_SCORES);
+//const highScoresRecord = JSON.parse(highScoreString) ?? [];
+const lowestScore = highScores[NO_OF_HIGH_SCORES - 1]?.score ?? 0;
 
 var allQuestions = [
   {
@@ -61,6 +66,24 @@ function setTime() {
     }
 
   }, 1000);
+}
+
+function showHighestScores() {
+  const highScoresRecord = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
+  const highScoreList = document.getElementById(HIGH_SCORES);
+  highScoreList.innerHTML = highScores
+    .map((score) => `<li>${score.score} - ${score.name}`)
+    .join('');
+}
+
+function checkHighScore(score) {
+  const highScoresRecord = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
+  const lowestScore = highScores[NO_OF_HIGH_SCORES - 1]?.score ?? 0;
+  
+  if (score > lowestScore) {
+    saveHighScore(score, highScores); // TODO
+    showHighScores(); // TODO
+  }
 }
 
 highScores.style.visibility="hidden";
@@ -127,11 +150,21 @@ function gameOver() {
   timeEl.style.visibility = "hidden";
   highScores.style.visibility="visible";
   //clearInterval(timerInterval);
+  checkHighScore(account.score);
   initials.addEventListener("click", function(){
     console.log(initialsInput.value);
   })
-
+  saveHighScore();
 }
+
+function saveHighScore(score, highScoresRecord) {
+  const name = prompt('You got a highscore! Enter name:');
+  const newScore = { score, name };
+  highScoresRecord.push(newScore);
+  highScoresRecord.sort((a, b) => b.score - a.score);
+  highScoresRecord.splice(NO_OF_HIGH_SCORES);
+  localStorage.setItem(HIGH_SCORES, JSON.stringify(highScoresRecord));
+};
 
 buttonEl.addEventListener("click", function(){
   console.log("Click");
