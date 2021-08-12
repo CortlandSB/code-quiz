@@ -5,6 +5,7 @@
 body {
     text-align: center;
     color: blue;
+    background: linear-gradient(rgb(245, 195, 232), rgb(241, 236, 227));
 }
 
 ul {
@@ -21,4 +22,11 @@ ul {
 .header {
     display: flex;
     justify-content: flex-end;
+}
+
+#startQuiz {
+    height: 100px;
+    width: 100px;
+    font-style: italic;
+    font-size: 30px;
 }

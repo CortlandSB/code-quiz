@@ -1,6 +1,6 @@
 var timeEl = document.querySelector("#time");
 console.log(timeEl);
-var secondsLeft = 30;
+var secondsLeft = 60;
 var questionEl = document.querySelector("#question");
 var buttonEl = document.querySelector("#startQuiz");
 var choicesList = document.querySelector("#choices");
@@ -53,7 +53,7 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left on clock.";
     //console.log(secondsLeft);
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
@@ -62,6 +62,8 @@ function setTime() {
 
   }, 1000);
 }
+
+highScores.style.visibility="hidden";
 
 // Function to create and append Time Over image
 function sendMessage() {
@@ -124,6 +126,7 @@ function gameOver() {
   questionEl.textContent="Game over! Final score: " + score;
   timeEl.style.visibility = "hidden";
   highScores.style.visibility="visible";
+  //clearInterval(timerInterval);
   initials.addEventListener("click", function(){
     console.log(initialsInput.value);
   })
